@@ -1,0 +1,202 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Wireless Noise-Cancelling Headphones",
+      "price": 89.99,
+      "category": "electronics",
+      "description": "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and foldable design. Perfect for travel and daily commuting.",
+      "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
+      "rating": { "rate": 4.5, "count": 342 }
+    },
+    {
+      "id": 2,
+      "title": "Men's Slim Fit Casual Shirt",
+      "price": 29.99,
+      "category": "men's clothing",
+      "description": "Classic slim-fit casual shirt crafted from 100% breathable cotton. Available in multiple colors, ideal for both office and weekend wear.",
+      "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+      "rating": { "rate": 4.1, "count": 178 }
+    },
+    {
+      "id": 3,
+      "title": "Women's Floral Summer Dress",
+      "price": 44.95,
+      "category": "women's clothing",
+      "description": "Lightweight floral print summer dress with adjustable straps and a flattering A-line silhouette. Machine washable and easy care.",
+      "image": "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
+      "rating": { "rate": 3.9, "count": 95 }
+    },
+    {
+      "id": 4,
+      "title": "Stainless Steel Chef's Knife",
+      "price": 54.99,
+      "category": "kitchen",
+      "description": "Professional 8-inch chef's knife forged from high-carbon stainless steel. Ergonomic pakkawood handle for precise control during long prep sessions.",
+      "image": "https://fakestoreapi.com/img/81fAn3QkFmL._AC_SX679_.jpg",
+      "rating": { "rate": 4.7, "count": 512 }
+    },
+    {
+      "id": 5,
+      "title": "Genuine Leather Bifold Wallet",
+      "price": 34.50,
+      "category": "accessories",
+      "description": "Slim genuine leather bifold wallet with 6 card slots, 2 bill compartments, and RFID blocking technology. A timeless everyday essential.",
+      "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 4.3, "count": 267 }
+    },
+    {
+      "id": 6,
+      "title": "Smart Fitness Tracker Watch",
+      "price": 129.00,
+      "category": "electronics",
+      "description": "Advanced fitness tracker with heart rate monitoring, sleep tracking, GPS, and 7-day battery life. Compatible with iOS and Android.",
+      "image": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
+      "rating": { "rate": 4.4, "count": 421 }
+    },
+    {
+      "id": 7,
+      "title": "Non-Stick Ceramic Frying Pan Set",
+      "price": 67.99,
+      "category": "kitchen",
+      "description": "Set of 3 ceramic non-stick frying pans (8\", 10\", 12\"). PFOA-free coating, oven safe to 450°F, and compatible with all stovetops including induction.",
+      "image": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
+      "rating": { "rate": 4.6, "count": 389 }
+    },
+    {
+      "id": 8,
+      "title": "Women's Running Sneakers",
+      "price": 79.95,
+      "category": "women's clothing",
+      "description": "Lightweight breathable mesh running shoes with cushioned insoles and anti-slip rubber outsoles. Ideal for jogging, gym, and daily active wear.",
+      "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 4.2, "count": 203 }
+    },
+    {
+      "id": 9,
+      "title": "Portable Bluetooth Speaker",
+      "price": 49.99,
+      "category": "electronics",
+      "description": "Compact waterproof Bluetooth 5.0 speaker with 360° surround sound, 12-hour playtime, and built-in microphone for hands-free calls.",
+      "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
+      "rating": { "rate": 4.0, "count": 156 }
+    },
+    {
+      "id": 10,
+      "title": "Men's Waterproof Hiking Boots",
+      "price": 109.95,
+      "category": "men's clothing",
+      "description": "Durable waterproof hiking boots with ankle support, aggressive outsole grip, and breathable Gore-Tex lining. Built for trails in all conditions.",
+      "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+      "rating": { "rate": 4.5, "count": 298 }
+    },
+    {
+      "id": 11,
+      "title": "Silver Chain Necklace",
+      "price": 24.99,
+      "category": "jewelry",
+      "description": "Elegant 925 sterling silver chain necklace, 18 inches, hypoallergenic and tarnish-resistant. Comes in a beautiful gift box.",
+      "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 3.8, "count": 112 }
+    },
+    {
+      "id": 12,
+      "title": "Ergonomic Office Chair",
+      "price": 249.00,
+      "category": "furniture",
+      "description": "Fully adjustable ergonomic office chair with lumbar support, breathable mesh back, armrests, and 360° swivel base. Ideal for long work sessions.",
+      "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 4.6, "count": 487 }
+    },
+    {
+      "id": 13,
+      "title": "4K Ultra HD Smart TV 55\"",
+      "price": 499.99,
+      "category": "electronics",
+      "description": "55-inch 4K Ultra HD Smart TV with HDR, Dolby Vision, built-in streaming apps, and voice control. Wall-mount ready with ultra-thin bezel design.",
+      "image": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
+      "rating": { "rate": 4.3, "count": 631 }
+    },
+    {
+      "id": 14,
+      "title": "Insulated Stainless Steel Water Bottle",
+      "price": 22.99,
+      "category": "kitchen",
+      "description": "Double-wall vacuum insulated 32oz water bottle. Keeps drinks cold 24 hours or hot 12 hours. BPA-free, leak-proof lid, and sweat-free exterior.",
+      "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 4.8, "count": 892 }
+    },
+    {
+      "id": 15,
+      "title": "Men's Classic Denim Jacket",
+      "price": 69.99,
+      "category": "men's clothing",
+      "description": "Timeless classic denim jacket with two chest pockets, adjustable cuffs, and durable stitching. A wardrobe staple for any casual look.",
+      "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+      "rating": { "rate": 4.0, "count": 143 }
+    },
+    {
+      "id": 16,
+      "title": "Diamond Stud Earrings",
+      "price": 149.00,
+      "category": "jewelry",
+      "description": "Classic 14K white gold diamond stud earrings (0.25 carat total weight). GIA certified stones with push-back closures. Timeless elegance.",
+      "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 4.7, "count": 234 }
+    },
+    {
+      "id": 17,
+      "title": "Mechanical Gaming Keyboard",
+      "price": 89.95,
+      "category": "electronics",
+      "description": "TKL mechanical gaming keyboard with Cherry MX Blue switches, RGB per-key lighting, N-key rollover, and detachable USB-C cable.",
+      "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
+      "rating": { "rate": 4.4, "count": 376 }
+    },
+    {
+      "id": 18,
+      "title": "Yoga Mat with Alignment Lines",
+      "price": 39.99,
+      "category": "sports",
+      "description": "Non-slip 6mm thick yoga mat with printed alignment lines, carrying strap, and eco-friendly TPE material. Ideal for yoga, pilates, and stretching.",
+      "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_FMwebp_QL65_.jpg",
+      "rating": { "rate": 4.3, "count": 267 }
+    },
+    {
+      "id": 19,
+      "title": "Women's Leather Crossbody Bag",
+      "price": 59.95,
+      "category": "accessories",
+      "description": "Genuine leather crossbody bag with multiple interior pockets, adjustable strap, and magnetic snap closure. Spacious yet compact everyday bag.",
+      "image": "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
+      "rating": { "rate": 4.2, "count": 189 }
+    },
+    {
+      "id": 20,
+      "title": "Stainless Steel Cookware Set",
+      "price": 189.99,
+      "category": "kitchen",
+      "description": "10-piece stainless steel cookware set including saucepans, saute pan, stockpot, and matching lids. Dishwasher safe and induction compatible.",
+      "image": "https://fakestoreapi.com/img/81fAn3QkFmL._AC_SX679_.jpg",
+      "rating": { "rate": 4.5, "count": 441 }
+    },
+    {
+      "id": 21,
+      "title": "Adjustable Dumbbell Set",
+      "price": 219.00,
+      "category": "sports",
+      "description": "Space-saving adjustable dumbbell set ranging from 5 to 52.5 lbs per dumbbell. Fast dial-select system, anti-roll design, and compact storage tray.",
+      "image": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
+      "rating": { "rate": 4.6, "count": 318 }
+    },
+    {
+      "id": 22,
+      "title": "Scented Soy Wax Candle Set",
+      "price": 28.99,
+      "category": "home",
+      "description": "Set of 3 hand-poured soy wax candles with cotton wicks and relaxing scents: lavender, vanilla, and eucalyptus. 40-hour burn time each.",
+      "image": "https://fakestoreapi.com/img/81fAn3QkFmL._AC_SX679_.jpg",
+      "rating": { "rate": 4.4, "count": 156 }
+    }
+  ]
+}

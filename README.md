@@ -1,105 +1,179 @@
-# ShopSphere
+# Task-6 — Ecommerce Product Catalog (Standalone)
 
-A complete, modern API-powered e-commerce product catalog and shopping application. Built for the Maincrafts Full Stack Web Development Internship — Project 6.
+A complete, standalone full-stack ecommerce **Product Catalog** built with **HTML5 + CSS3 + Vanilla JavaScript (ES Modules) + Vite** on the frontend and **JSON Server** as the local REST API backend.
 
-ShopSphere allows users to browse a product catalog, search, filter, sort, view details, and manage a shopping cart. It also includes a demo "Admin Mode" to manage the catalog (Create and Delete products) using a local JSON server.
+> Fully independent project — no shared code, styling, storage, or architecture with any other task.
+
+---
 
 ## Features
 
-- **Product Catalog**: View products with images, prices, ratings, and categories.
-- **Search & Filter**: Real-time debounced search, category checkboxes, price ranges, and minimum rating filters.
-- **Sorting**: Sort by price, title, and rating.
-- **Pagination**: Client-side pagination for smooth browsing.
-- **Shopping Cart**: Add items, adjust quantities, remove items. Cart state persists across browser reloads using LocalStorage.
-- **Product Details**: Dedicated modal for full product descriptions and adding multiple quantities.
-- **Demo Admin Mode**: Add new products (POST) and delete products (DELETE) via the UI.
-- **Professional UI/UX**: Loading skeletons, error states, empty states, toast notifications, responsive design, and light/dark theme toggle.
-- **Accessibility**: Keyboard navigation, semantic HTML, ARIA attributes, focus management, and screen reader live regions.
+- **REST API integration** — `GET /products`, `POST /products`, `DELETE /products/:id` against JSON Server
+- **Dedicated API service layer** — every `fetch()` call lives in `src/services/api.js`; the UI never calls `fetch()` directly (`async/await`, timeouts, friendly errors)
+- **Loading state** — spinner + skeleton cards on startup
+- **Error state + Retry** — friendly message with a working **Try Again** button (network errors, 4xx, 5xx, malformed responses, empty arrays)
+- **Search** — partial matches across title, description, category (debounced) with no-result state
+- **Category filtering** — categories derived dynamically from API data
+- **Sorting** — Default, Price low→high, Price high→low, Name A→Z, Name Z→A
+- **Pagination** — Prev/Next + page numbers, correct disabled states, resets to page 1 on search/filter/sort, clamps correctly after deletion
+- **Add Product form** — validation (required fields, positive price, valid image URL), submitting state, uses the real server response, navigates to + highlights the new card
+- **Delete Product** — per-card Delete with confirmation modal, no page reload, failure keeps the product with an error toast
+- **Shopping cart** — add / remove / increase / decrease / totals / empty, persisted in **LocalStorage** across refreshes; deleting a catalog product also cleans it from the cart gracefully
+- **Image handling (zero-tolerance)** — every product renders a real `<img>` with lazy loading, fixed dimensions, `object-fit: cover`, meaningful `alt` text, and a global error handler that swaps in `images/product-placeholder.svg` exactly once (no infinite loop)
+- **Responsive UI** — 4 → 3 → 2 → 1 column grid (desktop / laptop / tablet / mobile), accessible (labels, ARIA live regions, focus management, Esc to close, skip link)
 
-## Technology Stack
+---
 
-- **HTML5 & CSS3** (CSS Grid, Flexbox, Custom Properties/Variables)
-- **JavaScript ES2022+** (Modules, async/await, Fetch API)
-- **Vite** (Build tool and dev server)
-- **JSON Server** (Local REST API for GET, POST, DELETE)
-- **Vitest & Playwright** (Testing setup ready)
-- **ESLint & Prettier** (Code quality)
-- *No frontend frameworks (React/Vue) were used, per requirements.*
+## Tech Stack
 
-## Architecture & Data Flow
+| Layer    | Technology                              |
+|----------|-----------------------------------------|
+| Frontend | HTML5, CSS3, Vanilla JavaScript ES6+, ES Modules, Vite 6 |
+| Backend  | JSON Server 0.17 (local REST API)       |
+| Testing  | Manual + automated jsdom harness + headless-Chrome live test |
 
-- **State Management** (`src/state/store.js`): A lightweight, centralized state store with a publish/subscribe pattern. Components subscribe to specific state keys (like `cartCount`, `filteredProducts`) and re-render only when necessary.
-- **API Service Layer** (`src/services/api.js`): All HTTP communication is isolated here. It handles `fetch` calls, parses JSON, normalizes data to a consistent shape, and throws structured `ApiError` objects for the UI to handle.
-- **Cart Service** (`src/services/cart-service.js`): Manages cart logic and interacts with `localStorage` via a safe wrapper (`storage.js`).
-- **Components** (`src/components/`): Modular functions that generate DOM elements and bind event listeners.
-- **Main** (`src/main.js`): The orchestrator. It initializes state, binds components together, fetches initial data, and applies derived state logic (searching, filtering, sorting, paginating).
+No React / Angular / Next.js — intentionally dependency-light.
+
+---
 
 ## Project Structure
 
-```
-├── db.json                # Local JSON database (seed data)
-├── routes.json            # JSON Server route mappings
-├── vite.config.js         # Vite configuration
-├── package.json           # Dependencies and scripts
+```text
+Task-6/
+├── index.html                    # App shell (header, toolbar, grid, pagination, cart drawer, modals, toasts)
+├── package.json                  # Scripts + devDependencies (vite, json-server, concurrently)
+├── vite.config.js                # Vite dev server (port 5173)
+├── .env.example                  # Sample API URL override (VITE_API_URL)
+├── .gitignore
+├── README.md
+├── public/
+│   └── images/
+│       └── product-placeholder.svg   # Local fallback when any image fails
+├── server/
+│   └── db.json                   # JSON Server database (24 realistic products)
 └── src/
-    ├── main.js            # Entry point
-    ├── styles/            # CSS files (reset, variables, global, components, responsive)
-    ├── components/        # UI modules (header, grid, cards, cart, modals, etc.)
-    ├── services/          # API and LocalStorage services
-    ├── state/             # Centralized store (store.js)
-    └── utils/             # Formatters, validation, constants
+    ├── app.js                    # Storefront orchestrator (state, rendering, cart, forms) — no fetch() here
+    ├── styles.css                # Full responsive design system
+    ├── services/
+    │   └── api.js                # ONLY place fetch() may appear; base URL centralized here
+    ├── components/
+    │   ├── productCard.js        # Product card + skeleton renderer (XSS-safe DOM building)
+    │   ├── cart.js               # Cart drawer renderer
+    │   └── toast.js              # Success/error notifications
+    └── utils/
+        ├── helpers.js            # escapeHtml, formatPrice, debounce, image-URL check
+        ├── storage.js            # LocalStorage cart persistence
+        └── validation.js         # Add Product form validation
 ```
 
-## Setup & Running Locally
+---
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## Installation
 
-2. **Start the application (API + Frontend)**
-   ```bash
-   npm run dev
-   ```
-   This uses `concurrently` to run both the JSON Server (port 3001) and Vite dev server (port 5173).
-   The application will automatically open in your browser at `http://localhost:5173`.
+Requirements: **Node.js 18+** and **npm**.
 
-## API Endpoints (Local JSON Server)
+```bash
+cd Task-6
+npm install
+```
+
+---
+
+## Running the Project
+
+The app needs **two processes**: the JSON Server API (port `3001`) and the Vite frontend (port `5173`).
+
+**Terminal 1 — Backend (JSON Server):**
+
+```bash
+npm run dev:api
+# serves http://localhost:3001/products (watch mode on server/db.json)
+```
+
+**Terminal 2 — Frontend (Vite):**
+
+```bash
+npm run dev
+# serves http://localhost:5173
+```
+
+**Or both at once:**
+
+```bash
+npm run dev:all
+```
+
+**Production build / preview:**
+
+```bash
+npm run build
+npm run preview
+# serves the dist/ build at http://localhost:5173
+```
+
+> The API base URL is centralized in `src/services/api.js` and defaults to `http://localhost:3001`. Override it with a `.env` file (see `.env.example`): `VITE_API_URL=http://localhost:3001`.
+
+---
+
+## API Endpoints
 
 Base URL: `http://localhost:3001`
 
-- `GET /api/products` - Retrieve all products
-- `GET /api/products/:id` - Retrieve a single product
-- `POST /api/products` - Create a new product
-- `DELETE /api/products/:id` - Delete a product
+| Method | Endpoint          | Description                              |
+|--------|-------------------|------------------------------------------|
+| GET    | `/products`       | List all products (200 + JSON array)     |
+| GET    | `/products/:id`   | Single product (200, or 404 if missing)  |
+| POST   | `/products`       | Create product — body `{title, price, category, description, image, rating}` → 201 with generated `id` |
+| DELETE | `/products/:id`   | Delete product (200, or 404 if missing)  |
 
-## Development Commands
+Quick smoke test (backend must be running):
 
-- `npm run dev` - Start dev server and API.
-- `npm run api` - Start only the JSON server.
-- `npm run build` - Create a production build.
-- `npm run preview` - Preview the production build locally.
-- `npm run lint` - Run ESLint.
-- `npm run format` - Format code with Prettier.
-- `npm run test` - Run Vitest unit tests.
-- `npm run test:e2e` - Run Playwright browser tests.
+```bash
+curl http://localhost:3001/products            # GET list
+curl -X POST http://localhost:3001/products ^
+  -H "Content-Type: application/json" ^
+  -d "{\"title\":\"Demo\",\"price\":9.99,\"category\":\"test\",\"description\":\"Demo product.\",\"image\":\"https://picsum.photos/seed/demo/600/600\"}"
+curl -X DELETE http://localhost:3001/products/25
+```
 
-## Testing Behavior
+---
 
-- **Loading States**: Skeletons appear while products load. Disabled buttons and spinners show during POST/DELETE.
-- **Error States**: If the API is down, a user-friendly error screen with a "Try Again" button appears. Forms show validation errors inline.
-- **Persistence**: Add items to the cart, refresh the page, and observe the cart badge and contents remain intact.
-- **Mutations**: Click "Manage" in the header to enter Admin Mode. You can add a product via the form (sends POST) and it appears in the grid immediately. Click the trash icon on a card to delete it (sends DELETE).
+## Testing Instructions
 
-## Mapping to Project 6 Requirements
+### 1. Startup states
+1. Start both servers, open `http://localhost:5173` — observe skeleton cards → 8 products, "Showing 1–8 of 24 products", "Page 1 of 3".
+2. Stop the backend, reload → friendly error card → restart backend → **Try Again** → products render.
 
-- ✅ Retrieve products via HTTP GET.
-- ✅ Add products via HTTP POST.
-- ✅ Remove products via HTTP DELETE.
-- ✅ Fetch API & async/await used exclusively.
-- ✅ Professional loading and error states implemented.
-- ✅ Dedicated API service layer (`src/services/api.js`).
-- ✅ Search, filter, sort, and pagination work harmoniously.
-- ✅ Shopping cart with LocalStorage persistence.
-- ✅ Fully responsive interface with CSS Grid/Flexbox.
-- ✅ Independent standalone project (does not rely on Project 5).
+### 2. Images (mandatory QA)
+1. Confirm all 8 visible cards show real photos (no broken icons).
+2. Open DevTools → Network → filter `Img` → reload → every image request is 200, zero 404s.
+3. Add a product with a valid image URL → its card renders the photo.
+4. Temporarily break an image (DevTools → edit an `<img src>` to an invalid URL) → it swaps to the local placeholder, no loop.
+5. Check Console → zero errors caused by the app.
+
+### 3. Search / filter / sort / pagination
+- Search `wire` → 2 results; search gibberish → empty state with a clear button.
+- Category `sports` → 4 results; categories come from the API data.
+- Sort price low→high starts at $12.50; name A→Z starts with "Aroma".
+- Next/Prev + page numbers work; Prev disabled on page 1; filters reset to page 1.
+
+### 4. Cart
+- Add to Cart → badge increments → open Cart → +/−/Remove/Empty cart, totals correct.
+- Refresh → cart persists (LocalStorage key `task6_cart_v1`).
+- Add a product to cart, then Delete that product → cart entry removed gracefully with a notice.
+
+### 5. POST validation
+- Open Add Product → submit empty → inline field errors.
+- Price `-5` or bad image URL → rejected. Valid data → 201 → new card appears (highlighted) with its own image → form resets → success toast.
+
+### 6. DELETE
+- Delete → confirmation modal → confirm → card disappears without reload → pagination adjusts.
+- (To simulate failure: stop the backend mid-delete → product stays + error toast.)
+
+---
+
+## Notes
+
+- Product photos use seeded `picsum.photos` URLs (stable, always HTTP 200) across 6 categories: electronics, fashion, home, beauty, sports, kitchen.
+- No GitHub Actions / workflows / CI files are included (handled manually).
+- No secrets or credentials anywhere in the repo.

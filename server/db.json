@@ -1,0 +1,292 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Aurora Wireless Headphones",
+      "price": 129.99,
+      "category": "electronics",
+      "description": "Over-ear Bluetooth 5.3 headphones with 40h battery, hybrid noise cancellation and plush memory-foam cushions.",
+      "image": "https://picsum.photos/seed/task6-headphones/600/600",
+      "rating": {
+        "rate": 4.7,
+        "count": 2314
+      }
+    },
+    {
+      "id": 2,
+      "title": "Pulse Smartwatch Series 5",
+      "price": 199,
+      "category": "electronics",
+      "description": "AMOLED display, heart-rate + SpO2 tracking, GPS, 10-day battery and 5ATM water resistance.",
+      "image": "https://picsum.photos/seed/task6-smartwatch/600/600",
+      "rating": {
+        "rate": 4.5,
+        "count": 1876
+      }
+    },
+    {
+      "id": 3,
+      "title": "Volt Portable Speaker",
+      "price": 59.99,
+      "category": "electronics",
+      "description": "Compact IPX7 waterproof speaker with 20h playtime, deep bass radiator and USB-C fast charging.",
+      "image": "https://picsum.photos/seed/task6-speaker/600/600",
+      "rating": {
+        "rate": 4.4,
+        "count": 964
+      }
+    },
+    {
+      "id": 4,
+      "title": "Lumen Mechanical Keyboard",
+      "price": 89.95,
+      "category": "electronics",
+      "description": "Hot-swappable 75% mechanical keyboard with gasket mount, PBT keycaps and tri-mode connectivity.",
+      "image": "https://picsum.photos/seed/task6-keyboard/600/600",
+      "rating": {
+        "rate": 4.6,
+        "count": 743
+      }
+    },
+    {
+      "id": 5,
+      "title": "Classic Oxford Sneakers",
+      "price": 74.5,
+      "category": "fashion",
+      "description": "Breathable knit sneakers with cushioned sole, recycled lining and all-day comfort fit.",
+      "image": "https://picsum.photos/seed/task6-sneakers/600/600",
+      "rating": {
+        "rate": 4.3,
+        "count": 1521
+      }
+    },
+    {
+      "id": 6,
+      "title": "Heritage Leather Jacket",
+      "price": 249,
+      "category": "fashion",
+      "description": "Full-grain faux-leather biker jacket with quilted lining, antique zips and tailored fit.",
+      "image": "https://picsum.photos/seed/task6-jacket/600/600",
+      "rating": {
+        "rate": 4.8,
+        "count": 412
+      }
+    },
+    {
+      "id": 7,
+      "title": "Everyday Canvas Backpack",
+      "price": 49.99,
+      "category": "fashion",
+      "description": "20L water-repellent canvas backpack with padded 15-inch laptop sleeve and anti-theft pocket.",
+      "image": "https://picsum.photos/seed/task6-backpack/600/600",
+      "rating": {
+        "rate": 4.5,
+        "count": 2087
+      }
+    },
+    {
+      "id": 8,
+      "title": "Solstice Sunglasses",
+      "price": 35,
+      "category": "fashion",
+      "description": "Polarized UV400 lenses, ultralight acetate frame and spring hinges for lasting comfort.",
+      "image": "https://picsum.photos/seed/task6-sunglasses/600/600",
+      "rating": {
+        "rate": 4.2,
+        "count": 689
+      }
+    },
+    {
+      "id": 9,
+      "title": "Nordic Ceramic Mug Set",
+      "price": 29.95,
+      "category": "home",
+      "description": "Set of 4 stoneware mugs (350ml) with matte glaze, comfortable handles and dishwasher safety.",
+      "image": "https://picsum.photos/seed/task6-mugs/600/600",
+      "rating": {
+        "rate": 4.6,
+        "count": 530
+      }
+    },
+    {
+      "id": 10,
+      "title": "Halo Desk Lamp",
+      "price": 45,
+      "category": "home",
+      "description": "Dimmable LED desk lamp with 5 color temperatures, touch controls and foldable arm.",
+      "image": "https://picsum.photos/seed/task6-lamp/600/600",
+      "rating": {
+        "rate": 4.4,
+        "count": 877
+      }
+    },
+    {
+      "id": 11,
+      "title": "CloudRest Throw Blanket",
+      "price": 39.99,
+      "category": "home",
+      "description": "Extra-soft 130x170cm flannel throw, fade-resistant, machine washable and hypoallergenic.",
+      "image": "https://picsum.photos/seed/task6-blanket/600/600",
+      "rating": {
+        "rate": 4.7,
+        "count": 1290
+      }
+    },
+    {
+      "id": 12,
+      "title": "Verde Potted Monstera",
+      "price": 24.5,
+      "category": "home",
+      "description": "Live monstera deliciosa in a minimalist ceramic pot, easy-care and pet-aware placement guide included.",
+      "image": "https://picsum.photos/seed/task6-monstera/600/600",
+      "rating": {
+        "rate": 4.5,
+        "count": 356
+      }
+    },
+    {
+      "id": 13,
+      "title": "Glow Vitamin C Serum",
+      "price": 19.99,
+      "category": "beauty",
+      "description": "15% vitamin C + hyaluronic acid brightening serum, fragrance-free, 30ml dropper bottle.",
+      "image": "https://picsum.photos/seed/task6-serum/600/600",
+      "rating": {
+        "rate": 4.3,
+        "count": 3120
+      }
+    },
+    {
+      "id": 14,
+      "title": "Silk Repair Shampoo Bar",
+      "price": 12.5,
+      "category": "beauty",
+      "description": "Plastic-free solid shampoo with argan oil and keratin, up to 80 washes, for all hair types.",
+      "image": "https://picsum.photos/seed/task6-shampoo/600/600",
+      "rating": {
+        "rate": 4.1,
+        "count": 845
+      }
+    },
+    {
+      "id": 15,
+      "title": "Essential Grooming Kit",
+      "price": 54,
+      "category": "beauty",
+      "description": "6-piece grooming set: trimmer, scissors, comb, tweezers and canvas roll case.",
+      "image": "https://picsum.photos/seed/task6-grooming/600/600",
+      "rating": {
+        "rate": 4.6,
+        "count": 498
+      }
+    },
+    {
+      "id": 16,
+      "title": "Trailblazer Running Shoes",
+      "price": 119,
+      "category": "sports",
+      "description": "Responsive foam midsole, grippy trail outsole and reflective details for road-to-trail runs.",
+      "image": "https://picsum.photos/seed/task6-running/600/600",
+      "rating": {
+        "rate": 4.6,
+        "count": 1734
+      }
+    },
+    {
+      "id": 17,
+      "title": "Pro Yoga Mat 6mm",
+      "price": 32.99,
+      "category": "sports",
+      "description": "Non-slip TPE mat with alignment lines, carry strap and sweat-resistant surface.",
+      "image": "https://picsum.photos/seed/task6-yogamat/600/600",
+      "rating": {
+        "rate": 4.5,
+        "count": 2210
+      }
+    },
+    {
+      "id": 18,
+      "title": "Summit Insulated Bottle",
+      "price": 27,
+      "category": "sports",
+      "description": "750ml double-wall vacuum bottle, keeps drinks cold 24h / hot 12h, leak-proof cap.",
+      "image": "https://picsum.photos/seed/task6-bottle/600/600",
+      "rating": {
+        "rate": 4.7,
+        "count": 3421
+      }
+    },
+    {
+      "id": 19,
+      "title": "Core Dumbbell Pair 2x7.5kg",
+      "price": 69,
+      "category": "sports",
+      "description": "Hex rubber-coated dumbbells with knurled steel handles, floor-friendly and rust resistant.",
+      "image": "https://picsum.photos/seed/task6-dumbbell/600/600",
+      "rating": {
+        "rate": 4.8,
+        "count": 612
+      }
+    },
+    {
+      "id": 20,
+      "title": "Chef Precision Knife Set",
+      "price": 99.95,
+      "category": "kitchen",
+      "description": "5-piece German steel knife set with ergonomic handles, sharpener and storage block.",
+      "image": "https://picsum.photos/seed/task6-knives/600/600",
+      "rating": {
+        "rate": 4.7,
+        "count": 958
+      }
+    },
+    {
+      "id": 21,
+      "title": "Aroma Pour-Over Coffee Kit",
+      "price": 42.5,
+      "category": "kitchen",
+      "description": "Borosilicate dripper, gooseneck kettle guide, filters and bamboo collar for clean brews.",
+      "image": "https://picsum.photos/seed/task6-coffee/600/600",
+      "rating": {
+        "rate": 4.4,
+        "count": 477
+      }
+    },
+    {
+      "id": 22,
+      "title": "Orbit Robot Vacuum",
+      "price": 299,
+      "category": "electronics",
+      "description": "LiDAR navigation, 4000Pa suction, app + voice control and 150-min runtime with auto-recharge.",
+      "image": "https://picsum.photos/seed/task6-vacuum/600/600",
+      "rating": {
+        "rate": 4.5,
+        "count": 1102
+      }
+    },
+    {
+      "id": 23,
+      "title": "Drift Wireless Mouse",
+      "price": 29.99,
+      "category": "electronics",
+      "description": "Silent-click ergonomic mouse with 4000 DPI sensor, 18-month battery and dual-device pairing.",
+      "image": "https://picsum.photos/seed/task6-mouse/600/600",
+      "rating": {
+        "rate": 4.3,
+        "count": 2640
+      }
+    },
+    {
+      "id": 24,
+      "title": "Terra Cast-Iron Skillet",
+      "price": 38,
+      "category": "kitchen",
+      "description": "Pre-seasoned 26cm cast-iron skillet with pour spouts, oven safe to 260C, lifetime durability.",
+      "image": "https://picsum.photos/seed/task6-skillet/600/600",
+      "rating": {
+        "rate": 4.8,
+        "count": 1830
+      }
+    }
+  ]
+}

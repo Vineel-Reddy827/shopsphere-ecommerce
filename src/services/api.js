@@ -1,168 +1,150 @@
 /**
- * API Service Layer — ShopSphere
- *
- * All HTTP communication goes through this module.
- * No DOM manipulation or UI logic lives here.
- *
- * @typedef {Object} Product
- * @property {number|string} id
- * @property {string} title
- * @property {number} price
- * @property {string} category
- * @property {string} description
- * @property {string} image
- * @property {{ rate: number, count: number }} rating
+ * Task-6 API service layer.
+ * ALL fetch() calls in the application MUST live in this file.
+ * The UI layer (app.js / components) must never call fetch() directly.
  */
 
-import { PRODUCTS_ENDPOINT } from '../utils/constants.js';
-import { normalizeProduct } from '../utils/validation.js';
+const API_BASE_URL = (import.meta.env?.VITE_API_URL ?? 'http://localhost:3001').replace(/\/$/, '');
+const PRODUCTS_PATH = '/products';
+const REQUEST_TIMEOUT_MS = 12000;
 
-/**
- * Custom API error class.
- */
+export const FALLBACK_IMAGE = 'images/product-placeholder.svg';
+
 export class ApiError extends Error {
-  /**
-   * @param {string} message
-   * @param {number} [status]
-   * @param {string} [type]
-   */
-  constructor(message, status, type = 'api_error') {
+  constructor(message, { status = 0, url = '', method = 'GET' } = {}) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
-    this.type = type;
+    this.url = url;
+    this.method = method;
   }
 }
 
-/**
- * Perform a fetch request with consistent error handling.
- * @param {string} url
- * @param {RequestInit} [options]
- * @returns {Promise<unknown>}
- */
-async function request(url, options = {}) {
-  let response;
-
-  try {
-    response = await fetch(url, options);
-  } catch (err) {
-    if (err.name === 'AbortError') {
-      throw new ApiError('Request was cancelled.', 0, 'abort');
+function withTimeout(signal) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const onAbort = () => controller.abort();
+  if (signal) {
+    if (signal.aborted) controller.abort();
+    else signal.addEventListener('abort', onAbort, { once: true });
+  }
+  return {
+    signal: controller.signal,
+    done() {
+      clearTimeout(timer);
+      if (signal) signal.removeEventListener('abort', onAbort);
     }
-    throw new ApiError(
-      'Unable to reach the server. Please check that the API is running.',
-      0,
-      'network'
-    );
-  }
+  };
+}
 
-  if (!response.ok) {
-    let errorMessage = `Request failed: ${response.status} ${response.statusText}`;
-    try {
-      const body = await response.json();
-      if (body && body.message) {
-        errorMessage = body.message;
-      }
-    } catch {
-      // use default message
-    }
-    throw new ApiError(errorMessage, response.status, 'http');
-  }
+function friendlyMessage(status, method) {
+  if (status === 0) return 'Network error. Check that the API server is running, then try again.';
+  if (status === 404) return method === 'GET'
+    ? 'Products endpoint was not found (404). Is JSON Server running with server/db.json?'
+    : 'Item not found (404). It may already have been deleted.';
+  if (status >= 400 && status < 500) return `Request failed (${status}). Please check your input and try again.`;
+  if (status >= 500) return `Server error (${status}). Please try again in a moment.`;
+  return `Unexpected response (${status}). Please try again.`;
+}
 
-  const contentType = response.headers.get('content-type') || '';
-  if (!contentType.includes('application/json')) {
-    return null;
+async function parseJsonSafely(response, url, method) {
+  const text = await response.text();
+  if (!text) {
+    if (method === 'DELETE') return {};
+    throw new ApiError('The server returned an empty response. Please try again.', {
+      status: response.status, url, method
+    });
   }
-
   try {
-    return await response.json();
+    return JSON.parse(text);
   } catch {
-    throw new ApiError('Received invalid JSON from the server.', response.status, 'parse');
+    throw new ApiError('The server returned a malformed response. Please try again.', {
+      status: response.status, url, method
+    });
   }
 }
 
-/**
- * Fetch all products from the API.
- * @param {AbortSignal} [signal]
- * @returns {Promise<Product[]>}
- */
-export async function fetchProducts(signal) {
-  const raw = await request(PRODUCTS_ENDPOINT, { signal });
-
-  if (!Array.isArray(raw)) {
-    throw new ApiError('Unexpected response format from the products endpoint.', 0, 'parse');
+async function request(path, { method = 'GET', body, signal } = {}) {
+  const url = `${API_BASE_URL}${path}`;
+  const gate = withTimeout(signal);
+  try {
+    const response = await fetch(url, {
+      method,
+      signal: gate.signal,
+      headers: body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
+      body: body !== undefined ? JSON.stringify(body) : undefined
+    });
+    if (!response.ok) {
+      throw new ApiError(friendlyMessage(response.status, method), {
+        status: response.status, url, method
+      });
+    }
+    return await parseJsonSafely(response, url, method);
+  } catch (err) {
+    if (err instanceof ApiError) throw err;
+    if (err?.name === 'AbortError') {
+      throw new ApiError('Request timed out. Check your connection and try again.', {
+        status: 0, url, method
+      });
+    }
+    throw new ApiError('Network error. Check that the API server is running, then try again.', {
+      status: 0, url, method
+    });
+  } finally {
+    gate.done();
   }
-
-  const products = raw.map(normalizeProduct).filter(Boolean);
-  return products;
 }
 
-/**
- * Fetch a single product by ID.
- * @param {number|string} id
- * @param {AbortSignal} [signal]
- * @returns {Promise<Product>}
- */
-export async function fetchProductById(id, signal) {
-  const raw = await request(`${PRODUCTS_ENDPOINT}/${id}`, { signal });
-  const product = normalizeProduct(raw);
+function sanitizeProduct(value) {
+  if (!value || typeof value !== 'object') return null;
+  const id = Number(value.id);
+  if (!Number.isFinite(id)) return null;
+  return {
+    id,
+    title: String(value.title ?? 'Untitled product'),
+    price: Number(value.price ?? 0),
+    category: String(value.category ?? 'general'),
+    description: String(value.description ?? ''),
+    image: typeof value.image === 'string' ? value.image : '',
+    rating: value.rating && typeof value.rating === 'object'
+      ? { rate: Number(value.rating.rate ?? 0), count: Number(value.rating.count ?? 0) }
+      : undefined
+  };
+}
+
+/** GET /products — returns an array of sanitized products. */
+export async function getProducts() {
+  const data = await request(PRODUCTS_PATH, { method: 'GET' });
+  if (!Array.isArray(data)) {
+    throw new ApiError('The server returned a malformed response. Please try again.', {
+      status: 200, url: `${API_BASE_URL}${PRODUCTS_PATH}`, method: 'GET'
+    });
+  }
+  return data.map(sanitizeProduct).filter(Boolean);
+}
+
+/** POST /products — creates a product, returns the server-created record. */
+export async function createProduct(payload) {
+  const data = await request(PRODUCTS_PATH, { method: 'POST', body: payload });
+  const product = sanitizeProduct(data);
   if (!product) {
-    throw new ApiError(`Product with ID ${id} not found or returned invalid data.`, 404, 'not_found');
+    throw new ApiError('The server returned a malformed response. Please try again.', {
+      status: 200, url: `${API_BASE_URL}${PRODUCTS_PATH}`, method: 'POST'
+    });
   }
   return product;
 }
 
-/**
- * Create a new product via POST.
- * @param {Omit<Product, 'id'>} productData
- * @returns {Promise<Product>}
- */
-export async function createProduct(productData) {
-  const raw = await request(PRODUCTS_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      title: productData.title.trim(),
-      price: parseFloat(productData.price),
-      category: productData.category.trim().toLowerCase(),
-      description: productData.description ? productData.description.trim() : '',
-      image: productData.image ? productData.image.trim() : '',
-      rating: { rate: 0, count: 0 },
-    }),
-  });
-
-  const product = normalizeProduct(raw);
-  if (!product) {
-    throw new ApiError('Server returned an invalid product after creation.', 0, 'parse');
-  }
-  return product;
-}
-
-/**
- * Delete a product by ID via DELETE.
- * @param {number|string} id
- * @returns {Promise<void>}
- */
+/** DELETE /products/:id */
 export async function deleteProduct(id) {
-  await request(`${PRODUCTS_ENDPOINT}/${id}`, { method: 'DELETE' });
+  const numericId = Number(id);
+  if (!Number.isFinite(numericId)) {
+    throw new ApiError('Invalid product id.', { status: 400, url: `${API_BASE_URL}${PRODUCTS_PATH}/${id}`, method: 'DELETE' });
+  }
+  await request(`${PRODUCTS_PATH}/${encodeURIComponent(String(numericId))}`, { method: 'DELETE' });
+  return numericId;
 }
 
-/**
- * Update a product by ID via PATCH.
- * @param {number|string} id
- * @param {Partial<Product>} updates
- * @returns {Promise<Product>}
- */
-export async function updateProduct(id, updates) {
-  const raw = await request(`${PRODUCTS_ENDPOINT}/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updates),
-  });
-
-  const product = normalizeProduct(raw);
-  if (!product) {
-    throw new ApiError('Server returned an invalid product after update.', 0, 'parse');
-  }
-  return product;
+export function getApiBaseUrl() {
+  return API_BASE_URL;
 }
